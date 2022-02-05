@@ -1,4 +1,4 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
@@ -24,17 +24,22 @@ namespace Abbot.Arguments
 
             if (Legacy) {
                 trithemius = SteganographyInfo.PresetsB0003;
+                trithemius.Colors = PixelColor.None;
 
                 if (Alpha) {
-                    trithemius.Colors.Add(PixelColor.Alpha);
-                } else if (Red) {
-                    trithemius.Colors.Add(PixelColor.Red);
-                } else if (Green) {
-                    trithemius.Colors.Add(PixelColor.Green);
-                } else if (Blue) {
-                    trithemius.Colors.Add(PixelColor.Blue);
+                    trithemius.Colors |= PixelColor.Alpha;
                 }
-            } else {
+                else if (Red) {
+                    trithemius.Colors |= PixelColor.Red;
+                }
+                else if (Green) {
+                    trithemius.Colors |= PixelColor.Green;
+                }
+                else if (Blue) {
+                    trithemius.Colors |= PixelColor.Blue;
+                }
+            }
+            else {
                 trithemius = base.BuildTrithemius();
             }
 

@@ -133,10 +133,11 @@ namespace Trithemius.Windows
                     trithemius.Seed = digits;
                 }
 
-                if (checkAlpha.Checked && checkAlpha.Enabled) trithemius.Colors.Add(PixelColor.Alpha);
-                if (checkRed.Checked && checkRed.Enabled) trithemius.Colors.Add(PixelColor.Red);
-                if (checkGreen.Checked && checkGreen.Enabled) trithemius.Colors.Add(PixelColor.Green);
-                if (checkBlue.Checked && checkBlue.Enabled) trithemius.Colors.Add(PixelColor.Blue);
+                trithemius.Colors = PixelColor.None;
+                if (checkAlpha.Checked && checkAlpha.Enabled) trithemius.Colors |= PixelColor.Alpha;
+                if (checkRed.Checked && checkRed.Enabled) trithemius.Colors |= PixelColor.Red;
+                if (checkGreen.Checked && checkGreen.Enabled) trithemius.Colors |= PixelColor.Green;
+                if (checkBlue.Checked && checkBlue.Enabled) trithemius.Colors |= PixelColor.Blue;
                 return trithemius;
             }
             catch (ArgumentException ex) {

@@ -1,4 +1,4 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
@@ -57,7 +57,7 @@ namespace Monk.Imaging
         public bool InvertDataBits { get; set; } = false;
         public bool ZeroBasedSize { get; set; } = false;
         public EndianMode Endianness { get; set; } = EndianMode.LittleEndian;
-        public ISet<PixelColor> Colors { get; } = new HashSet<PixelColor>();
+        public PixelColor Colors { get; set; } = PixelColor.ARGB;
         public int Offset { get; set; } = 0;
     }
 }

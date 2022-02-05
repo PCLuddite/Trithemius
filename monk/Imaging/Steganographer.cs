@@ -46,7 +46,7 @@ namespace Monk.Imaging
             set => _info.Endianness = value;
         }
 
-        public ISet<PixelColor> Colors => _info.Colors;
+        public PixelColor Colors => _info.Colors;
 
         public IList<ushort> Seed
         {
@@ -256,7 +256,7 @@ namespace Monk.Imaging
             if (Seed.Count == 0) throw new InvalidImageOptionException("Seed cannot be 0 length", nameof(Seed));
             if (Offset < 0 || Offset >= _lockedBitmap.Height * _lockedBitmap.Width) throw new InvalidImageOptionException("Offset cannot be less than 0 or greater than the image area", nameof(Offset));
             if (Colors.Count == 0) throw new InvalidImageOptionException("At least one color must be specified", nameof(Colors));
-            if (!Colors.IsSubsetOf(_lockedBitmap.SupportedColors)) throw new InvalidImageOptionException("One or more colors is not supported by the image format", nameof(Colors));
+            if ((_lockedBitmap.SupportedColors & Colors) != Colors) throw new InvalidImageOptionException("One or more colors is not supported by the image format", nameof(Colors));
         }
     }
 }

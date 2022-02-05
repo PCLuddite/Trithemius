@@ -1,4 +1,4 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
@@ -59,10 +59,11 @@ namespace Abbot.Arguments
                 Offset               = Offset
             };
 
-            if (Alpha) trithemius.Colors.Add(PixelColor.Alpha);
-            if (Red) trithemius.Colors.Add(PixelColor.Red);
-            if (Green) trithemius.Colors.Add(PixelColor.Green);
-            if (Blue) trithemius.Colors.Add(PixelColor.Blue);
+            trithemius.Colors = PixelColor.None;
+            if (Alpha) trithemius.Colors |= PixelColor.Alpha;
+            if (Red) trithemius.Colors |= PixelColor.Red;
+            if (Green) trithemius.Colors |= PixelColor.Green;
+            if (Blue) trithemius.Colors |= PixelColor.Blue`;
 
             return trithemius;
         }

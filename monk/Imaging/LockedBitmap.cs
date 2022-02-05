@@ -1,4 +1,4 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
@@ -8,18 +8,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-
+using System.Text;
 using Monk.Memory;
 
 namespace Monk.Imaging
 {
     public abstract partial class LockedBitmap : IDisposable
     {
-        internal const int ALPHA_SHIFT   = 0x18;
-        internal const int RED_SHIFT     = 0x10;
-        internal const int GREEN_SHIFT   = 0x08;
-        internal const int BLUE_SHIFT    = 0x00;
-
         public Bitmap Bitmap { get; protected set; }
 
         public int Width { get; set; }
@@ -29,7 +24,7 @@ namespace Monk.Imaging
         public int Size => Height * Width;
 
         public abstract int Depth { get; }
-        public abstract ISet<PixelColor> SupportedColors { get; }
+        public abstract PixelColor SupportedColors { get; }
 
         public virtual bool Locked => BitmapData != null;
 
@@ -61,9 +56,9 @@ namespace Monk.Imaging
 
         public virtual byte GetPixelColor(int pixelIndex, PixelColor color)
         {
-            if (!SupportedColors.Contains(color)) ThrowHelper.ColorUnsupported(nameof(color), color);
+            if ((SupportedColors & color) != color) ThrowHelper.ColorUnsupported(nameof(color), color);
             int value = GetPixel(pixelIndex);
-            return (byte)((value >> GetShift(color)) & 0xFF);
+            return (byte)((value >> color.Shift) & 0xFF);
         }
 
         public virtual byte GetPixelColor(int x, int y, PixelColor color)
@@ -85,9 +80,9 @@ namespace Monk.Imaging
 
         public virtual void SetPixelColor(int pixelOffset, byte value, PixelColor color)
         {
-            if (!SupportedColors.Contains(color)) ThrowHelper.ColorUnsupported(nameof(color), color);
-            int argb = GetPixel(pixelOffset) & ~(0xFF << GetShift(color));
-            SetPixel(pixelOffset, argb | (value << GetShift(color)));
+            if ((SupportedColors & color) != color) ThrowHelper.ColorUnsupported(nameof(color), color);
+            int argb = GetPixel(pixelOffset) & ~(0xFF << color.Shift);
+            SetPixel(pixelOffset, argb | (value << color.Shift));
         }
 
         public virtual Color[,] ToColorMatrix()
@@ -193,29 +188,17 @@ namespace Monk.Imaging
             }
         }
 
-        private static int GetShift(PixelColor color)
-        {
-            switch(color) { 
-                case PixelColor.Alpha: return ALPHA_SHIFT;
-                case PixelColor.Red: return RED_SHIFT;
-                case PixelColor.Green: return GREEN_SHIFT;
-                case PixelColor.Blue: return BLUE_SHIFT;
-                default: throw new InvalidOperationException();
-            }
-        }
-
         private static class ThrowHelper
         {
             public static void ColorUnsupported(string arg, PixelColor color)
             {
-                throw new ArgumentException("unsupported color " + color.ToString(), arg);
+                throw new ArgumentException("unsupported color " + color, arg);
             }
 
-            public static void ColorUnsupported(string arg, ISet<PixelColor> colors, ISet<PixelColor> supported)
+            public static void ColorUnsupported(string arg, PixelColor colors, PixelColor supported)
             {
-                ISet<PixelColor> unsupported = new HashSet<PixelColor>(supported);
-                unsupported.ExceptWith(colors);
-                throw new ArgumentException($"unsupported colors {string.Join(",", unsupported)}", arg);
+                PixelColor unsupported = colors & ~supported;
+                throw new ArgumentException("unsupported colors " + unsupported, arg);
             }
         }
     }
