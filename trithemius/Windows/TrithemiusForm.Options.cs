@@ -1,18 +1,13 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
 // =====
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Monk.Imaging;
-using Monk.Memory;
 using Monk.Memory.Bittwiddling;
 
 namespace Trithemius.Windows
@@ -76,12 +71,8 @@ namespace Trithemius.Windows
                 groupBoxInvert.Enabled = groupBoxEndian.Enabled = groupBoxLsb.Enabled = 
                 checkAlpha.Enabled = !IsLegacyMode();
 
-            if (checkRed.Checked) {
-                checkAlpha.Checked = checkGreen.Checked = checkBlue.Checked = false;
-            } else if (checkGreen.Checked) {
-                checkAlpha.Checked = checkRed.Checked = checkBlue.Checked = false;
-            } else if (checkBlue.Checked) {
-                checkAlpha.Checked = checkRed.Checked = checkGreen.Checked = false;
+            if (IsLegacyMode()) {
+                SetOptions(CreateTrithemius());
             }
         }
 
@@ -111,6 +102,19 @@ namespace Trithemius.Windows
             if (IsLegacyMode() && checkBlue.Checked) {
                 checkAlpha.Checked = checkRed.Checked = checkGreen.Checked = false;
             }
+        }
+
+        private void SetOptions(SteganographyInfo info)
+        {
+            comboBoxEndian.SelectedIndex = info.Endianness == EndianMode.BigEndian ? 1 : 0;
+            numericUpDownOffset.Value = info.Offset + 1;
+            numericUpDownLsb.Value = info.LeastSignificantBits;
+            checkBoxInvertData.Checked = info.InvertDataBits;
+            checkBoxInvertPrefix.Checked = info.InvertPrefixBits;
+            checkAlpha.Checked = info.Colors.Contains(PixelColor.Alpha);
+            checkRed.Checked = info.Colors.Contains(PixelColor.Red);
+            checkGreen.Checked = info.Colors.Contains(PixelColor.Green);
+            checkBlue.Checked = info.Colors.Contains(PixelColor.Blue);
         }
     }
 }
