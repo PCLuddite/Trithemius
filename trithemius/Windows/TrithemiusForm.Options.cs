@@ -73,7 +73,12 @@ namespace Trithemius.Windows
 
             if (IsLegacyMode()) {
                 SetOptions(CreateTrithemius());
+                checkAlpha.Checked = false;
+                checkRed.Checked = true;
+                checkGreen.Checked = false;
+                checkBlue.Checked = false;
             }
+            RefreshColorOptions(pictureBox.Image?.PixelFormat ?? PixelFormat.Format32bppArgb);
         }
 
         private void checkAlpha_CheckedChanged(object sender, EventArgs e)
@@ -104,11 +109,28 @@ namespace Trithemius.Windows
             }
         }
 
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            comboBoxVersions.SelectedIndex = 0;
+            comboBoxEndian.SelectedIndex = 0;
+            numericUpDownOffset.Value = 1;
+            numericUpDownLsb.Value = 1;
+            checkBoxInvertData.Checked = false;
+            checkBoxZeroBased.Checked = false;
+            checkBoxInvertPrefix.Checked = false;
+            checkBoxPrefixSize.Checked = true;
+            checkAlpha.Checked = checkAlpha.Enabled;
+            checkRed.Checked = checkRed.Enabled;
+            checkGreen.Checked = checkGreen.Enabled;
+            checkBlue.Checked = checkBlue.Enabled;
+        }
+
         private void SetOptions(SteganographyInfo info)
         {
             comboBoxEndian.SelectedIndex = info.Endianness == EndianMode.BigEndian ? 1 : 0;
             numericUpDownOffset.Value = info.Offset + 1;
             numericUpDownLsb.Value = info.LeastSignificantBits;
+            checkBoxZeroBased.Checked = info.ZeroBasedSize;
             checkBoxInvertData.Checked = info.InvertDataBits;
             checkBoxInvertPrefix.Checked = info.InvertPrefixBits;
             checkAlpha.Checked = info.Colors.Contains(PixelColor.Alpha);
