@@ -1,4 +1,4 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
@@ -28,19 +28,25 @@ namespace Trithemius.Windows
         {
             if ("Browse" == ((Button)sender).Text) {
                 string path = Browse();
-                if (path != null) {
+                if (path == null) {
+                    return;
+                }
+                else {
                     ImagePath = path;
                     pathTextBox.Text = openFileDialog.FileName;
                 }
             }
-            try {
-                ReloadPreview(pathTextBox.Text);
-                ImagePath = pathTextBox.Text;
-                ((Button)sender).Text = "Browse";
-                RefreshOptions();
-            }
-            catch(IOException ex) {
-                ShowError(ex.Message);
+            ImagePath = pathTextBox.Text;
+            if (!string.IsNullOrEmpty(ImagePath)) {
+                try {
+                    ReloadPreview(ImagePath);
+                    RefreshOptions();
+                }
+                catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException) {
+                    ShowError(ex.Message);
+                    pathTextBox.SelectAll();
+                    pathTextBox.Focus();
+                }
             }
         }
 
@@ -66,7 +72,7 @@ namespace Trithemius.Windows
 
         private void pathTextBox_TextChanged(object sender, EventArgs e)
         {
-            buttonBrowse.Text = pathTextBox.Text == ImagePath ? "Browse" : "Refresh";
+            buttonBrowse.Text = pathTextBox.Text == ImagePath || pathTextBox.Text == "" ? "Browse" : "Refresh";
             RefreshOptions();
         }
 
