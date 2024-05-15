@@ -60,9 +60,9 @@ namespace Trithemius.Windows
                 }
             }
             else {
-                inputTextForm.CharacterLimit = Encoding.UTF8.GetMaxCharCount(AvailableBits / 8);
-                if (inputTextForm.ShowDialog(this) == DialogResult.OK) {
-                    message = inputTextForm.Result;
+                _inputTextForm.CharacterLimit = Encoding.UTF8.GetMaxCharCount(AvailableBits / 8);
+                if (_inputTextForm.ShowDialog(this) == DialogResult.OK) {
+                    message = _inputTextForm.Result;
                 }
             }
             if (message != null && saveFileDialog.ShowDialog(this) == DialogResult.OK) {

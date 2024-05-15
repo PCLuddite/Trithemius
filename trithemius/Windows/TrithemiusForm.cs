@@ -18,17 +18,18 @@ namespace Trithemius.Windows
 {
     public partial class TrithemiusForm : Form
     {
-        private readonly Text inputTextForm;
+        private readonly Text _inputTextForm;
 
         public TrithemiusForm()
         {
             InitializeComponent();
-            inputTextForm = new Text();
+            _inputTextForm = new Text();
         }
 
         private void TrithemiusForm_Load(object sender, EventArgs e)
         {
             comboBoxEndian.SelectedIndex = 0;
+            comboBoxVersions.SelectedIndex = 0;
         }
 
         private void SetEnabled(bool enabled)
