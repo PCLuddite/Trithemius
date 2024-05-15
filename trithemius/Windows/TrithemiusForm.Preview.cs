@@ -1,6 +1,6 @@
 // =====
 //
-// Copyright (c) 2013-2020 Timothy Baxendale
+// Copyright (c) 2013-2024 Timothy Baxendale
 //
 // =====
 using System;
@@ -17,6 +17,9 @@ namespace Trithemius.Windows
 {
     partial class TrithemiusForm
     {
+        private const string TEXT_BROWSE = "&Browse";
+        private const string TEXT_OPEN = "&Open";
+
         private string ImagePath { get; set; }
         
         private Image CurrentImage => pictureBox.Image;
@@ -26,7 +29,7 @@ namespace Trithemius.Windows
 
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
-            if ("Browse" == ((Button)sender).Text) {
+            if (TEXT_BROWSE == ((Button)sender).Text) {
                 string path = Browse();
                 if (path == null) {
                     return;
@@ -34,19 +37,20 @@ namespace Trithemius.Windows
                 else {
                     ImagePath = path;
                     pathTextBox.Text = openFileDialog.FileName;
-                }
-            }
-            ImagePath = pathTextBox.Text;
-            if (!string.IsNullOrEmpty(ImagePath)) {
-                try {
-                    ReloadPreview(ImagePath);
-                    RefreshOptions();
-                }
-                catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException) {
-                    ShowError(ex.Message);
                     pathTextBox.SelectAll();
                     pathTextBox.Focus();
                 }
+            }
+            ((Button)sender).Text = TEXT_BROWSE;
+            try {
+                ReloadPreview(pathTextBox.Text);
+                RefreshOptions();
+                ImagePath = pathTextBox.Text;
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException) {
+                ShowError(ex.Message);
+                pathTextBox.SelectAll();
+                pathTextBox.Focus();
             }
         }
 
@@ -72,7 +76,7 @@ namespace Trithemius.Windows
 
         private void pathTextBox_TextChanged(object sender, EventArgs e)
         {
-            buttonBrowse.Text = pathTextBox.Text == ImagePath || pathTextBox.Text == "" ? "Browse" : "Refresh";
+            buttonBrowse.Text = pathTextBox.Text == ImagePath || pathTextBox.Text == "" ? TEXT_BROWSE : TEXT_OPEN;
             RefreshOptions();
         }
 

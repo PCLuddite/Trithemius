@@ -1,4 +1,4 @@
-﻿namespace Trithemius.Windows
+namespace Trithemius.Windows
 {
     partial class TrithemiusForm
     {
@@ -151,7 +151,7 @@
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowse.TabIndex = 1;
-            this.buttonBrowse.Text = "Browse";
+            this.buttonBrowse.Text = "&Browse";
             this.buttonBrowse.UseVisualStyleBackColor = true;
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
@@ -271,7 +271,7 @@
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(69, 19);
             this.buttonReset.TabIndex = 5;
-            this.buttonReset.Text = "Reset";
+            this.buttonReset.Text = "&Reset";
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
@@ -606,7 +606,7 @@
             this.buttonEncode.Name = "buttonEncode";
             this.buttonEncode.Size = new System.Drawing.Size(75, 23);
             this.buttonEncode.TabIndex = 4;
-            this.buttonEncode.Text = "Encode";
+            this.buttonEncode.Text = "&Encode";
             this.buttonEncode.UseVisualStyleBackColor = true;
             this.buttonEncode.Click += new System.EventHandler(this.buttonEncode_Click);
             // 
@@ -618,7 +618,7 @@
             this.buttonDecode.Name = "buttonDecode";
             this.buttonDecode.Size = new System.Drawing.Size(75, 23);
             this.buttonDecode.TabIndex = 3;
-            this.buttonDecode.Text = "Decode";
+            this.buttonDecode.Text = "&Decode";
             this.buttonDecode.UseVisualStyleBackColor = true;
             this.buttonDecode.Click += new System.EventHandler(this.buttonDecode_Click);
             // 
