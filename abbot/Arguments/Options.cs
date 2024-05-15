@@ -63,7 +63,7 @@ namespace Abbot.Arguments
             if (Alpha) trithemius.Colors |= PixelColor.Alpha;
             if (Red) trithemius.Colors |= PixelColor.Red;
             if (Green) trithemius.Colors |= PixelColor.Green;
-            if (Blue) trithemius.Colors |= PixelColor.Blue`;
+            if (Blue) trithemius.Colors |= PixelColor.Blue;
 
             return trithemius;
         }
