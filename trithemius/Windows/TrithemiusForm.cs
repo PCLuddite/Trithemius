@@ -1,6 +1,6 @@
 // =====
 //
-// Copyright (c) 2013-2020 Timothy Baxendale
+// Copyright (c) 2013-2024 Timothy Baxendale
 //
 // =====
 using System;
@@ -18,12 +18,12 @@ namespace Trithemius.Windows
 {
     public partial class TrithemiusForm : Form
     {
-        private readonly Text _inputTextForm;
+        private readonly TextForm _inputTextForm;
 
         public TrithemiusForm()
         {
             InitializeComponent();
-            _inputTextForm = new Text();
+            _inputTextForm = new TextForm();
         }
 
         private void TrithemiusForm_Load(object sender, EventArgs e)

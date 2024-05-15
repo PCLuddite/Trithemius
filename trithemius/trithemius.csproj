@@ -58,11 +58,11 @@
     <Compile Include="Windows\RandomSeed.Designer.cs">
       <DependentUpon>RandomSeed.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Text.cs">
+    <Compile Include="Windows\TextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Windows\Text.Designer.cs">
-      <DependentUpon>Text.cs</DependentUpon>
+    <Compile Include="Windows\TextForm.Designer.cs">
+      <DependentUpon>TextForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\TrithemiusForm.cs">
       <SubType>Form</SubType>
@@ -106,8 +106,8 @@
     <EmbeddedResource Include="Windows\RandomSeed.resx">
       <DependentUpon>RandomSeed.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Text.resx">
-      <DependentUpon>Text.cs</DependentUpon>
+    <EmbeddedResource Include="Windows\TextForm.resx">
+      <DependentUpon>TextForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\TrithemiusForm.resx">
       <DependentUpon>TrithemiusForm.cs</DependentUpon>
