@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This work (Modern Encryption of a String C#, by James Tuley), 
  * identified by James Tuley, is free of known copyright restrictions.
  * https://gist.github.com/4336842
@@ -152,14 +152,11 @@ namespace Monk.Encryption
       byte[] cipherText;
       byte[] iv;
 
-      using (var aes = new AesManaged
-      {
-        KeySize = KeyBitSize,
-        BlockSize = BlockBitSize,
-        Mode = CipherMode.CBC,
-        Padding = PaddingMode.PKCS7
-      })
-      {
+    using (var aes = Aes.Create()) {
+        aes.KeySize = KeyBitSize;
+        aes.BlockSize = BlockBitSize;
+        aes.Mode = CipherMode.CBC;
+        aes.Padding = PaddingMode.PKCS7;
 
         //Use random IV
         aes.GenerateIV();
@@ -240,14 +237,12 @@ namespace Monk.Encryption
         if (compare != 0)
           return null;
 
-        using (var aes = new AesManaged
+        using (var aes = Aes.Create())
         {
-          KeySize = KeyBitSize,
-          BlockSize = BlockBitSize,
-          Mode = CipherMode.CBC,
-          Padding = PaddingMode.PKCS7
-        })
-        {
+          aes.KeySize = KeyBitSize;
+          aes.BlockSize = BlockBitSize;
+          aes.Mode = CipherMode.CBC;
+          aes.Padding = PaddingMode.PKCS7;
 
           //Grab IV from message
           var iv = new byte[ivLength];
@@ -292,7 +287,7 @@ namespace Monk.Encryption
       byte[] cryptKey;
       byte[] authKey;
       //Use Random Salt to prevent pre-generated weak password attacks.
-      using (var generator = new Rfc2898DeriveBytes(password, SaltBitSize / 8, Iterations))
+      using (var generator = new Rfc2898DeriveBytes(password, SaltBitSize / 8, Iterations, HashAlgorithmName.SHA1))
       {
         var salt = generator.Salt;
 
@@ -306,7 +301,7 @@ namespace Monk.Encryption
 
       //Deriving separate key, might be less efficient than using HKDF, 
       //but now compatible with RNEncryptor which had a very similar wireformat and requires less code than HKDF.
-      using (var generator = new Rfc2898DeriveBytes(password, SaltBitSize / 8, Iterations))
+      using (var generator = new Rfc2898DeriveBytes(password, SaltBitSize / 8, Iterations, HashAlgorithmName.SHA1))
       {
         var salt = generator.Salt;
 
@@ -340,12 +335,12 @@ namespace Monk.Encryption
       byte[] authKey;
 
       //Generate crypt key
-      using (var generator = new Rfc2898DeriveBytes(password, cryptSalt, Iterations))
+      using (var generator = new Rfc2898DeriveBytes(password, cryptSalt, Iterations, HashAlgorithmName.SHA1))
       {
         cryptKey = generator.GetBytes(KeyBitSize / 8);
       }
       //Generate auth key
-      using (var generator = new Rfc2898DeriveBytes(password, authSalt, Iterations))
+      using (var generator = new Rfc2898DeriveBytes(password, authSalt, Iterations, HashAlgorithmName.SHA1))
       {
         authKey = generator.GetBytes(KeyBitSize / 8);
       }
