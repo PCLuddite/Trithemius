@@ -1,4 +1,4 @@
-﻿// =====
+// =====
 //
 // Copyright (c) 2013-2020 Timothy Baxendale
 //
@@ -26,11 +26,6 @@ namespace Monk.Imaging
 
         public InvalidImageOptionException(string message, string paramName)
             : base(message, paramName)
-        {
-        }
-
-        protected InvalidImageOptionException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
         {
         }
     }
