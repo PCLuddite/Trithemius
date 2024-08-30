@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "trithemius", "trithemius\trithemius.csproj", "{B47D5AF1-885A-4250-8F9A-2A02243DE63B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "monk", "monk\monk.csproj", "{E23E8AEF-7026-406C-8116-8FE2C2C181E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monk", "monk\monk.csproj", "{E23E8AEF-7026-406C-8116-8FE2C2C181E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abbot", "abbot\abbot.csproj", "{E5CE946C-CC97-4B1E-8F84-472878C6D167}"
 EndProject
